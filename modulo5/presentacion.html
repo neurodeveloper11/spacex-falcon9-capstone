@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Presentación Ejecutiva — SpaceX Falcon 9 Landing Prediction</title>
+<style>
+  @page { size: landscape; margin: 15mm; }
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background-color: #f4f6f8;
+    color: #2c3e50;
+    margin: 0;
+    padding: 20px;
+    line-height: 1.5;
+  }
+  .slide {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+    padding: 35px 45px;
+    margin-bottom: 30px;
+    page-break-after: always;
+    border-left: 6px solid #1a73e8;
+    min-height: 520px;
+  }
+  h1 { color: #0d47a1; margin-top: 0; font-size: 26px; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; }
+  h2 { color: #1565c0; font-size: 20px; }
+  h3 { color: #37474f; font-size: 17px; }
+  p, li { font-size: 15px; color: #455a64; }
+  ul { padding-left: 25px; }
+  .badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-weight: 600; font-size: 13px; margin-right: 8px; }
+  .badge-blue { background: #e3f2fd; color: #0d47a1; }
+  .badge-green { background: #e8f5e9; color: #2e7d32; }
+  .badge-orange { background: #fff3e0; color: #e65100; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start; }
+  .img-box { text-align: center; margin-top: 15px; }
+  .img-box img { max-width: 100%; max-height: 340px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+  table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 14px; }
+  th, td { border: 1px solid #cfd8dc; padding: 10px; text-align: left; }
+  th { background-color: #eceff1; color: #263238; font-weight: 600; }
+  tr:nth-child(even) { background-color: #f8fafc; }
+  .highlight { background: #e8f5e9; font-weight: bold; color: #1b5e20; }
+</style>
+</head>
+<body>
+
+<!-- Slide 1 -->
+<div class="slide">
+  <h1>🚀 Diapositiva 1: Portada y Metadatos</h1>
+  <div style="margin-top: 60px; text-align: center;">
+    <h2 style="font-size: 32px; color: #0d47a1;">SpaceX Falcon 9 First Stage Landing Prediction</h2>
+    <h3 style="font-size: 22px; color: #546e7a;">IBM Applied Data Science Capstone</h3>
+    <div style="margin-top: 30px;">
+      <span class="badge badge-blue">Autor: Fabio Ignacio Torres Benitez</span>
+      <span class="badge badge-green">Rol: Lead Data Scientist</span>
+      <span class="badge badge-orange">Certificación: IBM Professional Certificate</span>
+    </div>
+    <p style="margin-top: 40px; font-size: 15px; color: #78909c;">
+      Repositorio GitHub con código completo y cuadernos ejecutados:<br>
+      <strong>https://github.com/TU_USUARIO/spacex-falcon9-capstone</strong>
+    </p>
+  </div>
+</div>
+
+<!-- Slide 2 -->
+<div class="slide">
+  <h1>🎯 Diapositiva 2: Resumen Ejecutivo</h1>
+  <div class="grid-2">
+    <div>
+      <h3>El Contexto del Mercado</h3>
+      <ul>
+        <li>SpaceX cobra <strong>$62 Millones USD</strong> por lanzamiento de Falcon 9 gracias a la recuperación del cohete propulsor.</li>
+        <li>Los competidores tradicionales gastan <strong>>$165 Millones USD</strong> al desechar el cohete tras un único uso.</li>
+        <li>La reutilización de la primera etapa representa un ahorro directo de ~65% del costo operativo.</li>
+      </ul>
+      <h3>Objetivo del Proyecto</h3>
+      <ul>
+        <li>Predecir con algoritmos de Machine Learning si la primera etapa aterrizará con éxito para diseñar una estrategia comercial de licitación aeroespacial.</li>
+      </ul>
+    </div>
+    <div style="background: #f8fafc; padding: 20px; border-radius: 8px; border: 1px solid #cfd8dc;">
+      <h3>Métricas y Logros Principales</h3>
+      <ul>
+        <li><strong>Dataset Analizado:</strong> 90 vuelos históricos de Falcon 9 (60 éxitos, 30 fallos).</li>
+        <li><strong>Tasa de Éxito Global:</strong> 66.67%.</li>
+        <li><strong>Precisión de Test (Accuracy):</strong> <span class="badge badge-green">83.33%</span> en todos los modelos evaluados.</li>
+        <li><strong>Modelo Óptimo:</strong> Árbol de Decisión con <strong>87.68%</strong> en validación cruzada (10-fold CV).</li>
+        <li><strong>Entregables:</strong> 7 Cuadernos ejecutados, Dashboard Plotly Dash, Mapas Folium y Presentación en PDF.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 3 -->
+<div class="slide">
+  <h1>🌌 Diapositiva 3: Introducción y Planteamiento del Problema</h1>
+  <div class="grid-2">
+    <div>
+      <h3>La Revolución de la Reusabilidad</h3>
+      <p>Tradicionalmente, la primera etapa de los cohetes caía al océano como chatarra espacial. SpaceX logró el hito histórico de aterrizar verticalmente sus propulsores tanto en plataformas terrestres (RTLS) como en barcazas robóticas no tripuladas en alta mar (ASDS).</p>
+      <h3>Preguntas Clave de Negocio</h3>
+      <ul>
+        <li>¿Qué factores físicos y orbitales determinan el éxito de aterrizaje?</li>
+        <li>¿A qué distancia óptima de costas e infraestructuras deben ubicarse las plataformas?</li>
+        <li>¿Cómo puede una empresa emergente competir en precios frente al dominio de SpaceX?</li>
+      </ul>
+    </div>
+    <div style="text-align: center;">
+      <div style="background: #e3f2fd; padding: 25px; border-radius: 10px; border: 1px dashed #1976d2; margin-top: 20px;">
+        <h2 style="color: #0d47a1; margin: 0 0 10px 0;">Ventaja de Coste</h2>
+        <p style="font-size: 24px; font-weight: bold; color: #2e7d32; margin: 5px 0;">$62M vs $165M</p>
+        <p style="font-size: 14px; color: #546e7a;">Ahorro de $103 Millones por misión si la primera etapa es reutilizada con éxito.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 4 -->
+<div class="slide">
+  <h1>📡 Diapositiva 4: Metodología — Recolección y Manipulación de Datos</h1>
+  <div class="grid-2">
+    <div>
+      <h3>1. Ingesta de Datos (API y Web Scraping)</h3>
+      <ul>
+        <li><strong>API REST de SpaceX:</strong> Peticiones HTTP a <code>/v4/launches/past</code>. Normalización de JSON de cargas, núcleos y sitios.</li>
+        <li><strong>Web Scraping:</strong> Extracción de tablas históricas en Wikipedia con <code>BeautifulSoup4</code> para complementar información de vuelos iniciales.</li>
+      </ul>
+      <h3>2. Limpieza y Data Wrangling</h3>
+      <ul>
+        <li>Filtrado exclusivo de lanzamientos de <strong>Falcon 9</strong> (excluyendo Falcon 1).</li>
+        <li>Imputación de valores faltantes en <code>PayloadMass</code> utilizando la media (6,123.5 kg).</li>
+        <li>Estandarización de fechas ISO y extracción de año.</li>
+      </ul>
+    </div>
+    <div style="background: #f8fafc; padding: 20px; border-radius: 8px; border: 1px solid #cfd8dc;">
+      <h3>Definición de la Variable Objetivo (Class)</h3>
+      <p>Se agruparon los estados de aterrizaje de la columna <code>Outcome</code>:</p>
+      <table>
+        <tr><th>Resultado Real (Outcome)</th><th>Clase Asignada</th><th>Conteo</th></tr>
+        <tr><td>True ASDS, True RTLS, True Ocean</td><td><strong>1 (Éxito)</strong></td><td>60</td></tr>
+        <tr><td>False ASDS, False RTLS, False Ocean, None None</td><td><strong>0 (Fallo)</strong></td><td>30</td></tr>
+      </table>
+      <p style="margin-top: 10px; font-weight: bold; color: #0d47a1;">Tasa histórica de éxito: 66.67%</p>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 5 -->
+<div class="slide">
+  <h1>🔍 Diapositiva 5: Metodología — EDA y Analítica Visual Interactiva</h1>
+  <div class="grid-2">
+    <div>
+      <h3>Herramientas y Enfoque Exploratorio</h3>
+      <ul>
+        <li><strong>SQL EDA (SQLite):</strong> Almacenamiento local en base de datos <code>my_data1.db</code> con consultas para auditar lanzamientos, cargas por cliente y modos de fallo.</li>
+        <li><strong>Visualización con Seaborn/Matplotlib:</strong> Análisis bivariado y multivariado entre número de vuelo, masa de carga útil, órbitas y sitios de lanzamiento.</li>
+        <li><strong>Mapas Geoespaciales con Folium:</strong> Análisis de proximidad ortodrómica usando la fórmula de Haversine hacia costas, carreteras, vías de tren y ciudades.</li>
+        <li><strong>Dashboard con Plotly Dash:</strong> Aplicación analítica web interactiva en tiempo real con selectores dinámicos y callbacks reactivos.</li>
+      </ul>
+    </div>
+    <div style="text-align: center;">
+      <div style="background: #eceff1; padding: 20px; border-radius: 8px;">
+        <h3>Pipeline de Analítica Visual</h3>
+        <p><strong>Datos Crudos ➔ SQL ➔ Gráficos Seaborn ➔ Mapas Folium ➔ App Plotly Dash</strong></p>
+        <span class="badge badge-blue">Python 3.13</span>
+        <span class="badge badge-green">Folium 0.20</span>
+        <span class="badge badge-orange">Plotly Dash</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 6 -->
+<div class="slide">
+  <h1>🤖 Diapositiva 6: Metodología — Modelado Predictivo de Machine Learning</h1>
+  <div class="grid-2">
+    <div>
+      <h3>Preprocesamiento y Partición</h3>
+      <ul>
+        <li><strong>One-Hot Encoding:</strong> Transformación de variables categóricas (<code>Orbit</code>, <code>LaunchSite</code>, <code>LandingPad</code>, <code>Serial</code>) con <code>pd.get_dummies</code>, generando 83 features numéricas.</li>
+        <li><strong>Escalado:</strong> Normalización con <code>StandardScaler</code> para garantizar media 0 y varianza 1 en todos los predictores.</li>
+        <li><strong>División Train / Test:</strong> Partición estratificada 80/20 (72 muestras de entrenamiento, 18 muestras de prueba, <code>random_state=2</code>). Blindaje absoluto contra <em>Data Leakage</em>.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Algoritmos y Optimización con GridSearchCV</h3>
+      <ul>
+        <li><strong>Regresión Logística:</strong> Ajuste de penalización L2 y parámetro C.</li>
+        <li><strong>Support Vector Machine (SVM):</strong> Kernel sigmoid/rbf/linear con búsqueda exponencial de C y gamma.</li>
+        <li><strong>Árboles de Decisión:</strong> Búsqueda de profundidad máxima (max_depth), criterio Gini/Entropía y división mínima de hojas.</li>
+        <li><strong>K-Nearest Neighbors (KNN):</strong> Exploración de 1 a 10 vecinos con métricas Manhattan y Euclidiana.</li>
+        <li><strong>Validación Cruzada:</strong> 10 particiones estratificadas (<code>cv=10</code>) por cada modelo.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 7 -->
+<div class="slide">
+  <h1>📊 Diapositiva 7: Resultados — EDA con Visualizaciones</h1>
+  <div class="grid-2">
+    <div>
+      <h3>Hallazgos Clave de los Gráficos</h3>
+      <ul>
+        <li><strong>Evolución Anual:</strong> La tasa de éxito pasó de un 0% en 2010 a superar el 85% a partir de 2017 y alcanzar >90% en 2020.</li>
+        <li><strong>Órbitas más Favorables:</strong> Misiones a <code>ES-L1</code>, <code>GEO</code>, <code>HEO</code> y <code>SSO</code> registraron un <strong>100% de éxito</strong>.</li>
+        <li><strong>Órbitas Desafiantes:</strong> <code>GTO</code> presentó un 52% de éxito debido a la alta velocidad de reentrada atmosférica.</li>
+        <li><strong>Cargas Pesadas:</strong> Los lanzamientos con carga superior a 5,000 kg presentan mayor tasa de éxito al utilizar propulsores Block 5 modernos.</li>
+      </ul>
+    </div>
+    <div class="img-box">
+      <img src="figures/eda_yearly_trend.png" alt="Tendencia anual">
+      <p style="font-size: 13px; color: #78909c;">Evolución temporal de la tasa de éxito de aterrizaje (2010-2020)</p>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 8 -->
+<div class="slide">
+  <h1>🗄️ Diapositiva 8: Resultados — Consultas SQL con SQLite</h1>
+  <table>
+    <tr><th>Tarea / Consulta SQL</th><th>Resultado Clave</th></tr>
+    <tr><td>Sitios de lanzamiento únicos</td><td><code>CCAFS LC-40</code>, <code>CCAFS SLC-40</code>, <code>KSC LC-39A</code>, <code>VAFB SLC-4E</code></td></tr>
+    <tr><td>Masa total transportada para NASA (CRS)</td><td><strong>45,596 kg</strong></td></tr>
+    <tr><td>Masa promedio transportada por versión F9 v1.1</td><td><strong>2,534.67 kg</strong></td></tr>
+    <tr><td>Primer aterrizaje exitoso en tierra (Ground Pad)</td><td><strong>2015-12-22</strong> (Misión Orbcomm OG2, Propulsor B1019)</td></tr>
+    <tr><td>Propulsores con éxito en barcaza y masa 4000-6000 kg</td><td><code>F9 FT B1022</code>, <code>F9 FT B1026</code>, <code>F9 FT B1021.2</code>, <code>F9 FT B1031.2</code></td></tr>
+    <tr><td>Propulsores con carga máxima (15,600 kg)</td><td>Serie Falcon 9 Block 5 (misiones Starlink): <code>B1048.4</code>, <code>B1049.4</code>, etc.</td></tr>
+    <tr><td>Meses con fallos en barcaza en el año 2015</td><td>Enero (01) y Abril (04) en <code>CCAFS LC-40</code></td></tr>
+  </table>
+</div>
+
+<!-- Slide 9 -->
+<div class="slide">
+  <h1>🗺️ Diapositiva 9: Resultados — Análisis Geoespacial con Folium</h1>
+  <div class="grid-2">
+    <div>
+      <h3>Distancias Calculadas desde CCAFS SLC-40 (Fórmula Haversine)</h3>
+      <ul>
+        <li><strong>Distancia a la Costa más cercana:</strong> <span class="badge badge-blue">0.90 km</span> (seguridad marítima para abortos).</li>
+        <li><strong>Distancia a Autopistas principales:</strong> <span class="badge badge-green">0.59 km</span> (Samuel C. Phillips Pkwy para transporte pesado).</li>
+        <li><strong>Distancia a Vías Férreas:</strong> <span class="badge badge-orange">1.29 km</span> (suministro de componentes y combustible).</li>
+        <li><strong>Distancia a la Ciudad más cercana (Titusville, FL):</strong> <span class="badge badge-blue">23.18 km</span> (mitigación de ruidos y riesgos urbanos).</li>
+      </ul>
+      <h3>Patrón Territorial</h3>
+      <p>Todas las plataformas se ubican pegadas a la costa atlántica o pacífica, permitiendo trayectorias de lanzamiento seguras hacia el este sobre el océano.</p>
+    </div>
+    <div class="img-box">
+      <img src="figures/eda_orbit_success_rate.png" alt="Tasa por órbita">
+      <p style="font-size: 13px; color: #78909c;">Tasa de éxito de aterrizaje clasificada por tipo de órbita</p>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 10 -->
+<div class="slide">
+  <h1>🖥️ Diapositiva 10: Resultados — Dashboard con Plotly Dash</h1>
+  <div class="grid-2">
+    <div>
+      <h3>Arquitectura de la Aplicación (spacex_dash_app.py)</h3>
+      <ul>
+        <li><strong>Selector de Sitio (Dropdown):</strong> Permite aislar complejos o evaluar la totalidad de operaciones.</li>
+        <li><strong>Control Deslizante de Carga (RangeSlider):</strong> Rango interactivo de 0 a 10,000 kg.</li>
+        <li><strong>Callbacks Reactivos:</strong> Actualización síncrona en puerto local <code>8050</code>.</li>
+      </ul>
+      <h3>Hallazgos del Dashboard</h3>
+      <ul>
+        <li><strong>KSC LC-39A</strong> lidera con la tasa de éxito más alta (<strong>76.2%</strong>).</li>
+        <li>La mayor densidad de éxitos se concentra entre <strong>2,000 kg y 4,000 kg</strong>.</li>
+        <li>Los propulsores de última generación <strong>FT</strong> y <strong>B5</strong> muestran éxito casi perfecto en cualquier rango de peso.</li>
+      </ul>
+    </div>
+    <div class="img-box">
+      <img src="figures/dash_pie_all_sites.png" alt="Dashboard Pie Chart">
+      <p style="font-size: 13px; color: #78909c;">Distribución de lanzamientos exitosos por sitio (Plotly Dash)</p>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 11 -->
+<div class="slide">
+  <h1>📈 Diapositiva 11: Resultados — Modelado Predictivo y Clasificación ML</h1>
+  <table>
+    <tr>
+      <th>Modelo de Clasificación</th>
+      <th>Mejores Hiperparámetros Optimizados</th>
+      <th>Accuracy CV (Train)</th>
+      <th>Accuracy Conjunto de Prueba</th>
+    </tr>
+    <tr class="highlight">
+      <td><strong>Decision Tree</strong></td>
+      <td><code>max_depth=8, criterion='gini', min_samples_leaf=2</code></td>
+      <td><strong>87.68%</strong></td>
+      <td><strong>83.33%</strong></td>
+    </tr>
+    <tr>
+      <td><strong>Support Vector Machine (SVM)</strong></td>
+      <td><code>C=1.0, gamma=0.0316, kernel='sigmoid'</code></td>
+      <td>84.82%</td>
+      <td>83.33%</td>
+    </tr>
+    <tr>
+      <td><strong>K-Nearest Neighbors (KNN)</strong></td>
+      <td><code>n_neighbors=10, p=1 (Manhattan)</code></td>
+      <td>84.82%</td>
+      <td>83.33%</td>
+    </tr>
+    <tr>
+      <td><strong>Logistic Regression</strong></td>
+      <td><code>C=0.01, penalty='l2', solver='lbfgs'</code></td>
+      <td>84.64%</td>
+      <td>83.33%</td>
+    </tr>
+  </table>
+
+  <div class="grid-2" style="margin-top: 20px;">
+    <div>
+      <h3>Análisis de la Matriz de Confusión (Test: 18 muestras)</h3>
+      <ul>
+        <li><strong>Verdaderos Positivos:</strong> 12 aterrizajes exitosos identificados.</li>
+        <li><strong>Verdaderos Negativos:</strong> 3 fallos identificados.</li>
+        <li><strong>Falsos Positivos:</strong> 3 muestras.</li>
+        <li><strong>Falsos Negativos:</strong> 0 muestras (sensibilidad del 100%).</li>
+      </ul>
+    </div>
+    <div class="img-box" style="margin-top: 0;">
+      <img src="figures/ml_model_comparison.png" alt="Comparativa de modelos" style="max-height: 200px;">
+    </div>
+  </div>
+</div>
+
+<!-- Slide 12 -->
+<div class="slide">
+  <h1>🏆 Diapositiva 12: Modelo Ganador y Diagnóstico Técnico</h1>
+  <div class="grid-2">
+    <div>
+      <div style="background: #e8f5e9; padding: 20px; border-radius: 8px; border-left: 5px solid #2e7d32;">
+        <h2 style="color: #1b5e20; margin-top: 0;">Modelo Seleccionado: Decision Tree</h2>
+        <p style="font-size: 16px; margin: 0;">Precisión en CV: <strong>87.68%</strong> | Precisión en Test: <strong>83.33%</strong></p>
+      </div>
+      <h3 style="margin-top: 20px;">Justificación Técnica de Selección:</h3>
+      <ol>
+        <li><strong>Capacidad de Generalización:</strong> Superó a los métodos lineales y de distancias en la fase de validación cruzada estratificada.</li>
+        <li><strong>Captura de No Linealidades:</strong> El éxito del aterrizaje no sigue fronteras hiperplanares simples; depende de umbrales condicionales (ej. Órbita = GTO Y Carga > 6000 kg).</li>
+        <li><strong>Interpretabilidad Operativa:</strong> Las ramas del árbol pueden traducirse a árboles de decisiones operativas para los ingenieros de misión.</li>
+      </ol>
+    </div>
+    <div class="img-box">
+      <img src="figures/cm_tree.png" alt="Matriz de Confusión Árbol">
+      <p style="font-size: 13px; color: #78909c;">Matriz de Confusión en conjunto de prueba (Decision Tree)</p>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 13 -->
+<div class="slide">
+  <h1>💡 Diapositiva 13: Estrategia de Negocio y Licitación (Bidding Strategy)</h1>
+  <div class="grid-2">
+    <div>
+      <h3>Traducción Algorítmica a Ventaja Comercial</h3>
+      <ul>
+        <li><strong>Escenario A (Alta Probabilidad de Reutilización > 85%):</strong> En misiones Starlink, LEO o SSO, el costo marginal de SpaceX es de ~$62M. Competir por precio es inviable; debemos ofrecer ventajas en flexibilidad de inserción orbital o tiempo de entrega.</li>
+        <li><strong>Escenario B (Baja Probabilidad de Reutilización < 50%):</strong> En órbitas GTO pesadas o misiones interplanetarias, el propulsor suele ser desechado. El costo de SpaceX asciende a ~$100M-$120M. Aquí nuestra empresa puede <strong>licitar agresivamente entre $85M y $95M USD</strong>, arrebatando contratos gubernamentales y comerciales de alto margen.</li>
+      </ul>
+    </div>
+    <div style="background: #fff8e1; padding: 20px; border-radius: 8px; border: 1px solid #ffe082;">
+      <h3 style="color: #f57f17; margin-top: 0;">Regla de Decisión Comercial</h3>
+      <p><code>IF P(Landing=1) < 0.60 ➔ Ofertar licitación agresiva ($85M USD)</code></p>
+      <p><code>IF P(Landing=1) >= 0.60 ➔ Ofertar servicio premium o disponibilidad garantizada</code></p>
+      <p style="font-size: 13px; color: #6d4c41;">Esta estrategia optimiza la probabilidad de ganar licitaciones maximizando el margen de beneficio corporativo.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 14 -->
+<div class="slide">
+  <h1>🎨 Diapositiva 14: Creatividad y Valor Agregado Más Allá de la Plantilla</h1>
+  <ul>
+    <li><strong>Ejecución y Reproducibilidad Local:</strong> Todos los cuadernos fueron ejecutados y auditados en un entorno de desarrollo local independiente con Python 3.13 y SQLite3.</li>
+    <li><strong>Exportación Multiformato:</strong> Creación de mapas interactivos autónomos en HTML (<code>spacex_launch_geo.html</code>) que pueden ser inspeccionados sin servidor activo.</li>
+    <li><strong>Diseño Ejecutivo Responsivo:</strong> Presentación maquetada en HTML/CSS con soporte directo para impresión y exportación en PDF de alta fidelidad.</li>
+    <li><strong>Blindaje Contra Data Leakage:</strong> Aislamiento estricto del conjunto de prueba en la etapa de escalado y búsqueda de hiperparámetros.</li>
+  </ul>
+</div>
+
+<!-- Slide 15 -->
+<div class="slide">
+  <h1>🏁 Diapositiva 15: Conclusiones y Próximos Pasos</h1>
+  <div class="grid-2">
+    <div>
+      <h3>Conclusiones Finales</h3>
+      <ul>
+        <li>La ciencia de datos permite modelar con un <strong>83.33% de precisión</strong> un fenómeno físico e industrial altamente complejo como el aterrizaje de cohetes orbitales.</li>
+        <li>Las variables más determinantes son el <strong>tipo de órbita</strong>, la <strong>masa de la carga útil</strong> y el <strong>sitio de lanzamiento</strong>.</li>
+        <li>La predicción de reutilización es la clave para la fijación estratégica de precios en la industria espacial moderna.</li>
+      </ul>
+    </div>
+    <div style="background: #e8eaf6; padding: 20px; border-radius: 8px; border: 1px solid #c5cae9;">
+      <h3 style="color: #283593; margin-top: 0;">Próximos Pasos Recomendados</h3>
+      <ul>
+        <li>Incorporar datos meteorológicos en tiempo real (viento a gran altura, estado del mar en la barcaza).</li>
+        <li>Entrenar modelos de ensamble avanzados (XGBoost, LightGBM, CatBoost) para misiones Falcon Heavy.</li>
+        <li>Integrar el modelo en una API REST para cotización automática en tiempo real.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
