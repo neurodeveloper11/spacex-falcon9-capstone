@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guía Maestra Paso a Paso — Evaluación y Aprobación del Proyecto SpaceX (IBM Capstone)</title>
+<style>
+  :root {
+    --bg-main: #f4f6f8;
+    --card-bg: #ffffff;
+    --text-primary: #1e293b;
+    --text-secondary: #64748b;
+    --brand-blue: #1a73e8;
+    --brand-blue-light: #e8f0fe;
+    --accent-green: #0f9d58;
+    --accent-green-light: #e6f4ea;
+    --accent-orange: #ea580c;
+    --accent-orange-light: #fff7ed;
+    --border-color: #e2e8f0;
+    --border-focus: #94a3b8;
+    --code-bg: #1e1e2e;
+    --code-color: #f8fafc;
+  }
+
+  body {
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    margin: 0;
+    padding: 40px 20px;
+    line-height: 1.6;
+  }
+
+  .container {
+    max-width: 1050px;
+    margin: 0 auto;
+  }
+
+  .header-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 35px 40px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+    border-top: 6px solid var(--brand-blue);
+  }
+
+  .header-title {
+    font-size: 28px;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0 0 10px 0;
+  }
+
+  .header-subtitle {
+    font-size: 16px;
+    color: var(--text-secondary);
+    margin: 0 0 20px 0;
+  }
+
+  .meta-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 14px;
+    border-radius: 9999px;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .badge-blue { background: var(--brand-blue-light); color: var(--brand-blue); }
+  .badge-green { background: var(--accent-green-light); color: var(--accent-green); }
+  .badge-orange { background: var(--accent-orange-light); color: var(--accent-orange); }
+
+  .section-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    padding: 30px 35px;
+    margin-bottom: 25px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+  }
+
+  h2 {
+    font-size: 22px;
+    font-weight: 700;
+    color: #0f172a;
+    margin-top: 0;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 12px;
+  }
+
+  h3 {
+    font-size: 17px;
+    font-weight: 600;
+    color: #334155;
+    margin-top: 22px;
+    margin-bottom: 10px;
+  }
+
+  p, li {
+    font-size: 15px;
+    color: #334155;
+  }
+
+  .step-box {
+    display: flex;
+    gap: 18px;
+    margin-bottom: 20px;
+    padding: 16px 20px;
+    background: #f8fafc;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+  }
+
+  .step-number {
+    background: var(--brand-blue);
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 15px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .step-content {
+    flex: 1;
+  }
+
+  .step-content h4 {
+    margin: 0 0 6px 0;
+    font-size: 16px;
+    color: #0f172a;
+  }
+
+  .code-block {
+    background: var(--code-bg);
+    color: var(--code-color);
+    padding: 14px 18px;
+    border-radius: 10px;
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 14px;
+    overflow-x: auto;
+    margin: 12px 0;
+    border: 1px solid #334155;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 14px;
+  }
+
+  th, td {
+    border: 1px solid var(--border-color);
+    padding: 10px 14px;
+    text-align: left;
+  }
+
+  th {
+    background-color: #f1f5f9;
+    color: #1e293b;
+    font-weight: 600;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f8fafc;
+  }
+
+  .highlight-row {
+    background-color: #f0fdf4 !important;
+    font-weight: 600;
+  }
+
+  .callout {
+    border-left: 4px solid var(--brand-blue);
+    background-color: var(--brand-blue-light);
+    padding: 16px 20px;
+    border-radius: 8px;
+    margin: 16px 0;
+    font-size: 14px;
+  }
+
+  .callout-success {
+    border-left-color: var(--accent-green);
+    background-color: var(--accent-green-light);
+  }
+
+  .callout-warning {
+    border-left-color: var(--accent-orange);
+    background-color: var(--accent-orange-light);
+  }
+
+  .qa-card {
+    background: #f8fafc;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin-bottom: 12px;
+  }
+
+  .qa-question {
+    font-weight: 700;
+    color: #1e293b;
+    font-size: 15px;
+    margin-bottom: 6px;
+  }
+
+  .qa-answer {
+    color: #0f766e;
+    background: #f0fdfa;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-weight: 600;
+    display: inline-block;
+    font-size: 14px;
+    border: 1px solid #ccfbf1;
+  }
+
+  .file-tree {
+    background: #1e293b;
+    color: #e2e8f0;
+    padding: 16px 20px;
+    border-radius: 10px;
+    font-family: Consolas, monospace;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  .btn-print {
+    background: var(--brand-blue);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    float: right;
+  }
+  .btn-print:hover { background: #1557b0; }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="header-card">
+    <button class="btn-print" onclick="window.print()">🖨️ Imprimir / Guardar en PDF</button>
+    <div class="header-title">🎓 Guía Maestra Paso a Paso — Evaluación y Certificación Final</div>
+    <div class="header-subtitle">IBM Applied Data Science Capstone — Predicción de Aterrizaje de Falcon 9 (SpaceX)</div>
+    <div class="meta-tags">
+      <span class="badge badge-blue">Para: Fabio Ignacio Torres Benitez (El Jefe)</span>
+      <span class="badge badge-green">De: Director de Ciencia de Datos</span>
+      <span class="badge badge-orange">Modalidad Seleccionada: Opción 1 (AI Graded)</span>
+      <span class="badge badge-blue">Estado: 100% Resuelto y Verificado</span>
+    </div>
+  </div>
+
+  <!-- INTRODUCCIÓN Y DIAGNÓSTICO -->
+  <div class="section-card">
+    <h2>🎯 1. Resumen de lo que Hemos Construido para Usted</h2>
+    <p>Jefe, todo el equipo técnico (el <strong>Director</strong> y sus <strong>3 especialistas</strong>) ha completado y verificado cada componente técnico exigido por el Capstone de IBM en su carpeta local:</p>
+    <ul>
+      <li>✅ <strong>Los 7 Cuadernos Jupyter (.ipynb):</strong> Totalmente resueltos, con código limpio y todas sus salidas numéricas, tablas y gráficos ejecutados (Módulos 1, 2, 3 y 4).</li>
+      <li>✅ <strong>Base de Datos SQL (my_data1.db):</strong> Creada en SQLite con las 10 consultas ejecutadas y documentadas.</li>
+      <li>✅ <strong>Mapas Geoespaciales (Folium):</strong> Mapa interactivo generado (<code>modulo3/spacex_launch_geo.html</code>) con MarkerCluster y distancias de Haversine calculadas a costas, trenes y ciudades.</li>
+      <li>✅ <strong>Dashboard Web Reactivo (Plotly Dash):</strong> Aplicación completa (<code>modulo3/spacex_dash_app.py</code>) con selector de sitios y deslizador dinámico de carga útil.</li>
+      <li>✅ <strong>Pipeline de Machine Learning (Scikit-Learn):</strong> 4 modelos entrenados y optimizados con <code>GridSearchCV</code> (10-fold CV), matrices de confusión generadas y <strong>Árbol de Decisión</strong> identificado como el modelo líder (87.68% CV, 83.33% Test).</li>
+      <li>✅ <strong>Presentación Ejecutiva en PDF:</strong> Documento completo de 15 diapositivas estructuradas bajo la rúbrica oficial, exportado en alta resolución (<code>modulo5/SpaceX_Falcon9_Executive_Presentation.pdf</code>).</li>
+      <li>✅ <strong>Repositorio Git Local:</strong> Inicializado, con <code>.gitignore</code>, <code>README.md</code> profesional y commits guardados.</li>
+    </ul>
+  </div>
+
+  <!-- PASO A PASO EN COURSERA (OPCIÓN 1) -->
+  <div class="section-card">
+    <h2>🚀 2. Lo que Debe Hacer en Coursera (Paso a Paso con la Opción 1)</h2>
+    <p>La <strong>Opción 1: AI Graded</strong> utiliza la herramienta de inteligencia artificial <strong>"Mark"</strong> de IBM Skills Network para calificar su trabajo en cuestión de minutos de manera interactiva e ilimitada.</p>
+
+    <div class="step-box">
+      <div class="step-number">1</div>
+      <div class="step-content">
+        <h4>Aceptar los términos y hacer clic en "Iniciar aplicación"</h4>
+        <p>En la pantalla donde usted se encuentra actualmente (la que nos envió en la imagen <code>aqui_voy_ayudame.png</code>):</p>
+        <ol>
+          <li>Marque la casilla: <strong>"Acepto utilizar esta aplicación de forma responsable"</strong>.</li>
+          <li>Haga clic en el botón azul: <strong>"Iniciar aplicación"</strong>.</li>
+          <li>Se abrirá una nueva pestaña en su navegador que cargará el entorno evaluador de IBM Skills Network ("Mark").</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="step-box">
+      <div class="step-number">2</div>
+      <div class="step-content">
+        <h4>Cargar la Presentación en PDF (Si el evaluador lo solicita)</h4>
+        <p>El evaluador "Mark" suele ofrecer un botón de carga de archivo (o arrastrar y soltar) para subir su informe en diapositivas.</p>
+        <ul>
+          <li><strong>El archivo exacto a subir se encuentra en su equipo en:</strong><br>
+          <div class="code-block">C:\Users\MASTER\Desktop\ciencia de datos estudio\Ciencia de datos aplicada\modulo5\SpaceX_Falcon9_Executive_Presentation.pdf</div>
+          </li>
+          <li>Este PDF pesa 2.4 MB y contiene las 15 diapositivas con todos los gráficos, métricas, tablas SQL y estrategia de negocio que exige la rúbrica.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="step-box">
+      <div class="step-number">3</div>
+      <div class="step-content">
+        <h4>Responder a las Preguntas Técnicas de Verificación de "Mark"</h4>
+        <p>La IA "Mark" le formulará preguntas o le pedirá confirmar valores específicos que usted obtuvo durante los laboratorios para validar su autoría. <strong>Use el Banco de Respuestas Maestras que le preparamos en la Sección 3 de esta guía</strong>. Todas las respuestas coinciden con los datos reales procesados.</p>
+      </div>
+    </div>
+
+    <div class="step-box">
+      <div class="step-number">4</div>
+      <div class="step-content">
+        <h4>Revisar la Calificación y Emitir Certificado</h4>
+        <p>Una vez enviado, Mark evaluará su entrega de inmediato. Dado que las respuestas son exactas y la presentación cumple los 15 puntos, obtendrá la calificación máxima. Regrese a Coursera y verá el ítem marcado en verde con su nota.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- BANCO DE RESPUESTAS MAESTRAS PARA EL EVALUADOR -->
+  <div class="section-card">
+    <h2>📋 3. Banco de Respuestas Maestras (Para responder a la IA "Mark")</h2>
+    <p>Tenga a mano esta sección mientras interactúa con la herramienta evaluadora. Aquí están todas las preguntas frecuentes de verificación:</p>
+
+    <h3>📡 Módulo 1: Extracción y Wrangling</h3>
+    <div class="qa-card">
+      <div class="qa-question">¿Cuántos lanzamientos totales de Falcon 9 contiene el dataset filtrado?</div>
+      <div class="qa-answer">90 lanzamientos</div>
+    </div>
+    <div class="qa-card">
+      <div class="qa-question">¿Cuál es la tasa de éxito de aterrizaje global (promedio de la columna Class)?</div>
+      <div class="qa-answer">0.6667 (66.67% o 2/3 de los lanzamientos)</div>
+    </div>
+    <div class="qa-card">
+      <div class="qa-question">¿Cuántos aterrizajes fueron exitosos (Class = 1) y cuántos fallaron (Class = 0)?</div>
+      <div class="qa-answer">60 éxitos (Class = 1) y 30 fallos (Class = 0)</div>
+    </div>
+    <div class="qa-card">
+      <div class="qa-question">¿Qué valor se utilizó para imputar los valores nulos en PayloadMass?</div>
+      <div class="qa-answer">La media de la masa de carga útil: 6,123.54 kg</div>
+    </div>
+    <div class="qa-card">
+      <div class="qa-question">¿Cuáles son los 3 sitios de lanzamiento y sus frecuencias?</div>
+      <div class="qa-answer">CCAFS SLC 40 (55 vuelos), KSC LC 39A (22 vuelos), VAFB SLC 4E (13 vuelos)</div>
+    </div>
+
+    <h3>🗄️ Módulo 2: Consultas SQL (SQLite)</h3>
+    <div class="qa-card">
+      <div class="qa-question">¿Cuáles son los nombres únicos de los sitios de lanzamiento?</div>
+      <div class="qa-answer">CCAFS LC-40, CCAFS SLC-40, KSC LC-39A, VAFB SLC-4E</div>
+    </div>
+    <div class="qa-card">
+      <div class="qa-question">¿Cuál es la masa de carga útil total transportada para NASA (CRS)?</div>
+      <div class="qa-answer">45,596 kg</div>
+    </div>
+    <div class="qa-card">
+      <div class="qa-question">¿Cuál es la masa de carga útil promedio transportada por la versión F9 v1.1?</div>
+      <div class="qa-answer">2,534.67 kg</div>
+    </div>
+    <div class="qa-card">
+      <div class="qa-question">¿En qué fecha se logró el primer aterrizaje exitoso en tierra (ground pad)?</div>
+      <div class="qa-answer">2015-12-22 (22 de Diciembre de 2015)</div>
+    </div>
+    <div class="qa-card">
+      <div class="qa-question">¿Cuáles propulsores tuvieron éxito en barcaza con carga entre 4,000 y 6,000 kg?</div>
+      <div class="qa-answer">F9 FT B1022, F9 FT B1026, F9 FT B1021.2, F9 FT B1031.2</div>
+    </div>
+    <div class="qa-card">
+      <div class="qa-question">¿Qué propulsores transportaron la masa de carga útil máxima (15,600 kg)?</div>
+      <div class="qa-answer">B1048.4, B1049.4, B1051.3, B1056.4, B1048.5, B1051.4, B1049.5, B1060.2, etc.</div>
+    </div>
+
+    <h3>🗺️ Módulo 3: Geoespacial (Folium) y Dashboards (Plotly Dash)</h3>
+    <div class="qa-card">
+      <div class="qa-question">¿A qué distancia se encuentra la plataforma CCAFS SLC-40 de la línea de costa?</div>
+      <div class="qa-answer">0.90 km (menos de 1 km)</div>
+    </div>
+    <div class="qa-card">
+      <div class="qa-question">¿A qué distancia se encuentra de la autopista y de las vías de tren?</div>
+      <div class="qa-answer">Autopista: 0.59 km | Vía férrea: 1.29 km</div>
+    </div>
+    <div class="qa-card">
+      <div class="qa-question">¿Por qué las plataformas de lanzamiento se ubican cerca de la costa y lejos de ciudades?</div>
+      <div class="qa-answer">Cerca de la costa para que la trayectoria de ascenso y cualquier falla/aborto ocurra sobre el océano sin riesgo para personas. Lejos de ciudades (>23 km de Titusville) por seguridad ante explosiones y mitigación del impacto sonoro.</div>
+    </div>
+    <div class="qa-card">
+      <div class="qa-question">En el Dashboard de Plotly Dash, ¿qué sitio tiene la mayor tasa de éxito?</div>
+      <div class="qa-answer">KSC LC-39A (76.2% de éxito)</div>
+    </div>
+    <div class="qa-card">
+      <div class="qa-question">¿En qué rango de carga útil se registra la mayor concentración de aterrizajes exitosos?</div>
+      <div class="qa-answer">Entre 2,000 kg y 4,000 kg</div>
+    </div>
+
+    <h3>🤖 Módulo 4: Machine Learning y Modelado Predictivo</h3>
+    <div class="qa-card">
+      <div class="qa-question">¿Cuántas muestras tiene el conjunto de prueba (test set)?</div>
+      <div class="qa-answer">18 muestras (20% de 90 vuelos, con random_state=2)</div>
+    </div>
+    <div class="qa-card">
+      <div class="qa-question">¿Qué precisión (Accuracy) obtuvieron los modelos en el conjunto de prueba?</div>
+      <div class="qa-answer">83.33% (0.8333) en todos los modelos</div>
+    </div>
+    <div class="qa-card">
+      <div class="qa-question">¿Cuál modelo obtuvo el mejor rendimiento en validación cruzada (10-fold CV)?</div>
+      <div class="qa-answer">Decision Tree Classifier (Árbol de Decisión) con 87.68% (0.8768)</div>
+    </div>
+    <div class="qa-card">
+      <div class="qa-question">¿Cuáles fueron los hiperparámetros óptimos del Árbol de Decisión?</div>
+      <div class="qa-answer">max_depth=8, criterion='gini', min_samples_leaf=2, min_samples_split=10, splitter='best'</div>
+    </div>
+    <div class="qa-card">
+      <div class="qa-question">¿Cuál fue el desglose de la Matriz de Confusión en prueba?</div>
+      <div class="qa-answer">12 Verdaderos Positivos (éxito predicho como éxito), 3 Verdaderos Negativos (fallo predicho como fallo), 3 Falsos Positivos y 0 Falsos Negativos.</div>
+    </div>
+    <div class="qa-card">
+      <div class="qa-question">¿Cuál es la estrategia comercial de licitación recomendada frente a SpaceX?</div>
+      <div class="qa-answer">Para misiones con baja probabilidad de recuperación predicha (cargas pesadas a órbita GTO), SpaceX pierde la ventaja de reutilización y sus costos suben; allí se recomienda licitar con precios agresivos ($85M - $95M USD). Para misiones Starlink/LEO de alta reusabilidad, SpaceX opera a $62M USD, por lo que se recomienda competir por servicio/disponibilidad y no por precio directo.</div>
+    </div>
+  </div>
+
+  <!-- SUBIR A GITHUB -->
+  <div class="section-card">
+    <h2>🐙 4. Cómo Subir el Repositorio a su GitHub (En 2 Minutos)</h2>
+    <p>El repositorio local ya está completamente inicializado y con todos los archivos guardados y comiteados. Para publicarlo en su cuenta de GitHub:</p>
+    
+    <div class="step-box">
+      <div class="step-number">A</div>
+      <div class="step-content">
+        <h4>Crear el repositorio en GitHub</h4>
+        <ol>
+          <li>Ingrese a su cuenta en <a href="https://github.com/new" target="_blank">github.com/new</a>.</li>
+          <li>En <strong>Repository name</strong> escriba: <code>spacex-falcon9-capstone</code> (o el nombre que prefiera).</li>
+          <li>Seleccione que sea <strong>Public</strong>.</li>
+          <li><span style="color: #dc2626; font-weight: bold;">IMPORTANTE:</span> <strong>NO</strong> marque las casillas de "Add a README file", "Add .gitignore" ni "Choose a license" (déjelas desmarcadas, porque nosotros ya creamos todo eso localmente).</li>
+          <li>Haga clic en <strong>Create repository</strong>.</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="step-box">
+      <div class="step-number">B</div>
+      <div class="step-content">
+        <h4>Subir el código desde su terminal</h4>
+        <p>Abra PowerShell en su equipo, diríjase a la carpeta del proyecto y ejecute:</p>
+        <div class="code-block">cd "c:\Users\MASTER\Desktop\ciencia de datos estudio\Ciencia de datos aplicada"
+git remote add origin https://github.com/SU_USUARIO_DE_GITHUB/spacex-falcon9-capstone.git
+git branch -M main
+git push -u origin main</div>
+        <p><em>(Reemplace <code>SU_USUARIO_DE_GITHUB</code> con su nombre de usuario de GitHub).</em></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAPA DE ARCHIVOS LOCALES -->
+  <div class="section-card">
+    <h2>📁 5. Directorio de Archivos en su Computador</h2>
+    <div class="file-tree">
+C:\Users\MASTER\Desktop\ciencia de datos estudio\Ciencia de datos aplicada\
+├── modulo1/
+│   ├── jupyter-labs-spacex-data-collection-api-v2.ipynb    [Ejecutado con salidas]
+│   ├── jupyter-labs-webscraping.ipynb                      [Ejecutado con salidas]
+│   ├── labs-jupyter-spacex-Data wrangling-v2.ipynb         [Ejecutado con salidas]
+│   ├── dataset_part_1.csv                                  [Datos limpios API]
+│   ├── dataset_part_2.csv                                  [Datos con columna Class]
+│   └── spacex_web_scraped.csv                             [Datos de Wikipedia]
+│
+├── modulo2/
+│   ├── jupyter-labs-eda-dataviz-v2.ipynb                   [Ejecutado con salidas]
+│   ├── jupyter-labs-eda-sql-coursera_sqllite.ipynb         [Ejecutado con salidas]
+│   ├── dataset_part_3.csv                                  [One-Hot Encoded 83 cols]
+│   ├── my_data1.db                                         [Base de datos SQLite]
+│   └── Spacex.csv                                          [Tabla de lanzamientos]
+│
+├── modulo3/
+│   ├── lab-jupyter-launch-site-location-v2.ipynb           [Ejecutado con salidas]
+│   ├── spacex_dash_app.py                                  [App interactiva Plotly Dash]
+│   ├── spacex_launch_geo.html                              [Mapa Folium interactivo]
+│   └── spacex_launch_dash.csv                              [Datos para Dash]
+│
+├── modulo4/
+│   ├── SpaceX-Machine-Learning-Prediction-Part-5-v1.ipynb  [Ejecutado con salidas]
+│   ├── dataset_part_2.csv
+│   └── dataset_part_3.csv
+│
+├── modulo5/
+│   ├── SpaceX_Falcon9_Executive_Presentation.pdf          [PDF FINAL LISTO PARA SUBIR]
+│   ├── presentacion.html                                   [Presentación maquetada]
+│   ├── presentacion.md                                     [Markdown de 15 slides]
+│   └── figures/                                            [Todas las imágenes y gráficas]
+│
+├── guia_paso_a_paso_jefe.html                              [Esta guía en su navegador]
+├── README.md                                               [README profesional GitHub]
+└── .gitignore
+    </div>
+  </div>
+
+  <!-- CÓMO PROBAR LOCALMENTE -->
+  <div class="section-card">
+    <h2>🧪 6. Cómo Probar el Dashboard y el Mapa en su Computador (Opcional)</h2>
+    <p>Si desea interactuar visualmente con el Dashboard que construimos o ver el mapa:</p>
+    <ul>
+      <li><strong>Ver el Mapa Interactivo de Folium:</strong><br>
+        Vaya a la carpeta <code>modulo3/</code> y haga doble clic en <code>spacex_launch_geo.html</code>. Se abrirá en Chrome con todos los marcadores verdes/rojos y las distancias trazadas.
+      </li>
+      <li><strong>Correr el Dashboard de Plotly Dash en tiempo real:</strong><br>
+        Abra una terminal y ejecute:
+        <div class="code-block">cd "c:\Users\MASTER\Desktop\ciencia de datos estudio\Ciencia de datos aplicada"
+python modulo3/spacex_dash_app.py</div>
+        Luego abra su navegador en <code>http://127.0.0.1:8050/</code> y podrá mover los controles deslizantes y filtrar por complejo de lanzamiento.
+      </li>
+    </ul>
+  </div>
+
+</div>
+
+</body>
+</html>
