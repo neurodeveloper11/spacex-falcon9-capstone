@@ -66,7 +66,7 @@ En este proyecto asumimos el rol de **Científicos de Datos** para una compañí
 ## 🚀 Cómo Reproducir este Proyecto
 1. Clonar el repositorio:
    ```bash
-   git clone <URL_DEL_REPOSITORIO>
+   git clone https://github.com/neurodeveloper11/spacex-falcon9-capstone.git
    cd "Ciencia de datos aplicada"
    ```
 2. Instalar dependencias requeridas:

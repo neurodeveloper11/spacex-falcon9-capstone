@@ -3,7 +3,7 @@
 
 **Autor:** Fabio Ignacio Torres Benitez  
 **Rol:** Lead Data Scientist  
-**Repositorio GitHub:** [SpaceX Falcon 9 Landing Prediction](https://github.com/fabio-torres/spacex-falcon9-capstone)  
+**Repositorio GitHub:** [SpaceX Falcon 9 Landing Prediction](https://github.com/neurodeveloper11/spacex-falcon9-capstone)  
 **Fecha:** Septiembre 2026  
 
 ---
@@ -12,7 +12,7 @@
 * **Título del Proyecto:** SpaceX Falcon 9 First Stage Landing Prediction
 * **Organización:** IBM Data Science Professional Certificate
 * **Autor:** Fabio Ignacio Torres Benitez
-* **Enlace al Repositorio de GitHub:** `https://github.com/TU_USUARIO/spacex-falcon9-capstone` *(Actualizar con usuario)*
+* **Enlace al Repositorio de GitHub:** `https://github.com/neurodeveloper11/spacex-falcon9-capstone`
 
 ---
 
