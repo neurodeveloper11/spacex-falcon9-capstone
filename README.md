@@ -3,6 +3,12 @@
 **Autor:** Fabio Ignacio Torres Benitez  
 **Certificación:** IBM Data Science Professional Certificate (Coursera)
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Python](https://img.shields.io/badge/Python-3.10+-blue.svg?logo=python&logoColor=white)](https://python.org)
+[![Hugging Face](https://img.shields.io/badge/Hugging%20Face-%40neurodeveloper-FFD21E?logo=huggingface&logoColor=black)](https://huggingface.co/neurodeveloper)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Fabio_Torres-0077B5?logo=linkedin&logoColor=white)](https://www.linkedin.com/in/fabio-torres-39364b258)
+[![GitHub](https://img.shields.io/badge/GitHub-neurodeveloper11-181717?logo=github&logoColor=white)](https://github.com/neurodeveloper11)
+
 ---
 
 ## 📌 Descripción General del Proyecto
@@ -79,3 +85,12 @@ En este proyecto asumimos el rol de **Científicos de Datos** para una compañí
    python modulo3/spacex_dash_app.py
    ```
    Abrir en el navegador: `http://127.0.0.1:8050/`
+
+---
+
+## 👤 Author & Contact
+
+**Fabio Ignacio Torres Benítez**  
+*Data Engineer | Cognitive Scientist & Clinical/Organizational Psychologist | Full-Stack AI Developer*  
+📍 Cali / Buenaventura, Colombia  
+🔗 [LinkedIn](https://www.linkedin.com/in/fabio-torres-39364b258) | [GitHub](https://github.com/neurodeveloper11) | [Hugging Face](https://huggingface.co/neurodeveloper) | [Google Play (NeuroGym Live)](https://play.google.com/store/apps/details?id=com.t11.neurochess&hl=es_419)
